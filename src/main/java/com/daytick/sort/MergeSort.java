@@ -1,8 +1,13 @@
-package com.daytick;
+package com.daytick.sort;
 
 import java.util.Arrays;
 
 /**
+ * 【归并排序】<p>
+ * 归并排序的核心是: 归并操作<p>
+ * 归并操作将两个有序的数组归并为更大的一个有序数组<p>
+ * 要将一个数组排序, 可以先(递归的)将它分为两半分别排序, 然后将结果归并起来
+ *
  * @author ly
  * @since 2021/1/6 8:58 AM
  */
@@ -10,7 +15,7 @@ public class MergeSort {
 
     /**
      * 自顶向下（基于递归）
-     * todo 优化：
+     * todo 可优化
      * 1. 对小规模子数组使用插入排序
      * 2. 测试待排序序列中左右半边是否已有序
      * 3. 去除原数组序列到辅助数组的拷贝

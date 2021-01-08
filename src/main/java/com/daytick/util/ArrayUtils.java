@@ -1,10 +1,10 @@
-package com.daytick;
+package com.daytick.util;
 
 /**
  * @author ly
  * @since 2021/1/5 10:04 AM
  */
-public class ArrayGenUtils {
+public class ArrayUtils {
 
     /**
      * 生成有n个元素的随机数组,每个元素的随机范围为[rangeL, rangeR]
@@ -29,15 +29,49 @@ public class ArrayGenUtils {
      *
      * @param n
      * @param swapTimes
+     * @param ascend
      * @return
      */
-    public static int[] generateNearlyOrderedArray(int n, int swapTimes) {
+    public static int[] generateNearlyOrderedArray(int n, int swapTimes, boolean ascend) {
 
         int[] arr = new int[n];
-        for (int i = 0; i < n; i++)
-            arr[i] = i;
+        if (ascend) {
+            for (int i = 0; i < n; i++)
+                arr[i] = i;
+        } else {
+            for (int i = 0; i < n; i++)
+                arr[i] = n - i;
+        }
 
         for (int i = 0; i < swapTimes; i++) {
+            int a = (int) (Math.random() * n);
+            int b = (int) (Math.random() * n);
+            int t = arr[a];
+            arr[a] = arr[b];
+            arr[b] = t;
+        }
+
+        return arr;
+    }
+
+    /**
+     * 生成含大量重复元素的数组
+     *
+     * @param n
+     * @param swapTimes
+     * @return
+     */
+    public static int[] generateLotsDuplicatedArray(int n, int swapTimes) {
+        int[] arr = new int[n];
+        int i = 0;
+        do {
+            int rand = i + (int) (Math.random() * 1000);
+            for (; i < n && i <= rand; i++) {
+                arr[i] = rand;
+            }
+        } while (i < n);
+
+        for (int j = 0; j < swapTimes; j++) {
             int a = (int) (Math.random() * n);
             int b = (int) (Math.random() * n);
             int t = arr[a];

@@ -1,12 +1,21 @@
-package com.daytick;
+package com.daytick.sort;
 
 import java.util.Arrays;
 
 /**
+ * 【计数排序】<p>
+ * 计数排序不是基于比较的排序算法，其核心在于将输入的数据值转化为键存储在额外开辟的数组空间中。<p>
+ * 作为一种线性时间复杂度的排序，它要求输入的数据必须是有确定范围的整数。<p>
+ * 算法步骤:<p>
+ * - 1.找出待排序的数组中最大和最小的元素<p>
+ * - 2.统计数组中每个值为i的元素出现的次数，存入数组C的第i项<p>
+ * - 3.对所有的计数累加（从C中的第一个元素开始，每一项和前一项相加<p>
+ * - 4.反向填充目标数组：将每个元素i放在新数组的第C(i)项，每放一个元素就将C(i)减去1
+ *
  * @author ly
  * @since 2021/1/6 9:26 AM
  */
-public class CountSort {
+public class CountingSort {
 
     public static void sort(int[] arr) {
         // 找出数组的最大值和最小值

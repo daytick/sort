@@ -1,7 +1,16 @@
-package com.daytick;
+package com.daytick.sort;
+
+import java.util.Arrays;
+
+import static com.daytick.util.ArrayUtils.*;
+import static com.daytick.util.SortUtils.isSorted;
+import static com.daytick.util.SortUtils.swap;
 
 /**
- * 快速排序（从小到大）
+ * 【快速排序】<p>
+ * - 随机选定一个轴<p>
+ * - 基于切分算法，将数组a切分为a[lo...j-1] < a[j] < a[j+1...hi]<p>
+ * - 递归地在左右子数组进行上述步骤
  *
  * @author ly
  * @since 2021/1/5 9:18 AM
@@ -209,11 +218,59 @@ public class QuickSort {
                 : x[b] > x[c] ? b : x[a] > x[c] ? c : a;
     }
 
+    public static void testSort(Class<?> sortClass, int[] arr) {
+        int[] arr2 = Arrays.copyOf(arr, arr.length);
+        int[] arr3 = Arrays.copyOf(arr, arr.length);
+        int[] arr4 = Arrays.copyOf(arr, arr.length);
+        int[] arr5 = Arrays.copyOf(arr, arr.length);
 
-    private static void swap(int[] arr, int a, int b) {
-        int temp = arr[a];
-        arr[a] = arr[b];
-        arr[b] = temp;
+        long startTime = System.currentTimeMillis();
+        sort1(arr, 0, arr.length - 1);
+        long endTime = System.currentTimeMillis();
+        assert isSorted(arr);
+        System.out.println(sortClass.getSimpleName() + ".sort1()" + " : " + (endTime - startTime) + "ms");
+
+        long startTime2 = System.currentTimeMillis();
+        sort2(arr2, 0, arr2.length - 1);
+        long endTime2 = System.currentTimeMillis();
+        assert isSorted(arr);
+        System.out.println(sortClass.getSimpleName() + ".sort2()" + " : " + (endTime2 - startTime2) + "ms");
+
+        long startTime3 = System.currentTimeMillis();
+        sort3(arr3, 0, arr3.length - 1);
+        long endTime3 = System.currentTimeMillis();
+        assert isSorted(arr);
+        System.out.println(sortClass.getSimpleName() + ".sort3()" + " : " + (endTime3 - startTime3) + "ms");
+
+        long startTime4 = System.currentTimeMillis();
+        sort4(arr4, 0, arr4.length - 1);
+        long endTime4 = System.currentTimeMillis();
+        assert isSorted(arr);
+        System.out.println(sortClass.getSimpleName() + ".sort4()" + " : " + (endTime4 - startTime4) + "ms");
+
+        long startTime5 = System.currentTimeMillis();
+        sort5(arr5, 0, arr5.length - 1);
+        long endTime5 = System.currentTimeMillis();
+        assert isSorted(arr);
+        System.out.println(sortClass.getSimpleName() + ".sort5()" + " : " + (endTime5 - startTime5) + "ms");
+    }
+
+    public static void main(String[] args) {
+        System.out.println("----------------随机数组-----------------");
+        testSort(QuickSort.class, generateRandomArray(100000, -500, 500));
+        System.out.println("========================================");
+
+        System.out.println("----------------总体升序-----------------");
+        testSort(QuickSort.class, generateNearlyOrderedArray(100000, 50, true));
+        System.out.println("========================================");
+
+        System.out.println("----------------基本降序-----------------");
+        testSort(QuickSort.class, generateNearlyOrderedArray(100000, 50, false));
+        System.out.println("========================================");
+
+        System.out.println("----------------大量重复-----------------");
+        testSort(QuickSort.class, generateLotsDuplicatedArray(50000, 20));
+        System.out.println("========================================");
     }
 
 }
